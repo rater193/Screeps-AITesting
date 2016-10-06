@@ -6,15 +6,17 @@ module.exports = {
     Init:function() {
         
     },
-    Update:function(){
+    Update:function(room){
         var miners = um.getUnitsByRole("HarvesterMiner");
         var carriers = um.getUnitsByRole("HarvesterCarrier");
-        var universals = um.getUnitsByRole("HarvesterUniversal");
         
-        if(universals.length<2) {
-            um.createUnit(um.worktypes.workercarrier, "HarvesterUniversal");
+        if(miners.length<2) {
+            um.createUnit(um.worktypes.worker, "HarvesterMiner");
+        }
+        if(carriers.length<1) {
+            um.createUnit(um.worktypes.carrier, "HarvesterCarrier");
         }
         
-        uaim.handle();
+        uaim.handle(room);
     }
 };

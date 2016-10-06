@@ -11,9 +11,9 @@ var unitManager = {}
 
 //These are some default work types you can use to create units
 unitManager.worktypes = {}
-unitManager.worktypes.worker             = [WORK, MOVE];
-unitManager.worktypes.carrier            = [CARRY, MOVE];
-unitManager.worktypes.workercarrier      = [WORK, CARRY, MOVE];
+unitManager.worktypes.worker             = [CARRY, WORK, WORK, MOVE];
+unitManager.worktypes.carrier            = [CARRY, CARRY, MOVE, MOVE, MOVE];
+unitManager.worktypes.workercarrier      = [WORK, CARRY, MOVE, MOVE, MOVE];
 unitManager.worktypes.healer             = [HEAL, MOVE];
 unitManager.worktypes.tankattacker       = [TOUGH, ATTACK, MOVE];
 unitManager.worktypes.ranger             = [RANGED_ATTACK, MOVE];

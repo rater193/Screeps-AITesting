@@ -13,17 +13,8 @@ var um = require("API.UnitManager");
 
 //Beginning tasks
 Task.Begin = {};
+Task.Begin.HarvestResourcesStart = require("Task.Begin.HarvestResources.Start");
 Task.Begin.HarvestResources = require("Task.Begin.HarvestResources");
-Task.Begin.Research = require("Task.Begin.Research");
-Task.Begin.CreateDefence = require("Task.Begin.CreateDefence");
-Task.Begin.EndBeginPhase = require("Task.Begin.EndBeginPhase");
-
-//Maintained tasks
-Task.Maintained = {};
-Task.Maintained.AttackSector = {};
-Task.Maintained.AttackSector.Begin = require("Task.Maintained.AttackSector.Begin");
-Task.Maintained.AttackSector.End = require("Task.Maintained.AttackSector.End");
-Task.Maintained.AttackSector.Loop = require("Task.Maintained.AttackSector.Loop");
 
 //Required libs
 var qf = require("QuickFunctions");
@@ -54,20 +45,20 @@ module.exports.loop = function () {
         switch(state) {
             case "Init":
                 //This initilizes the state of the room.
-                set_state("Begin-Harvest");
+                set_state("Begin-Harvest-Start");
                 console.log("Initializing");
                 Task.Begin.HarvestResources.Init(room);
-                Task.Begin.CreateDefence.Init(room);
-                Task.Begin.EndBeginPhase.Init(room);
-                Task.Begin.Research.Init(room);
-                Task.Maintained.AttackSector.Begin.Init(room);
-                Task.Maintained.AttackSector.End.Init(room);
-                Task.Maintained.AttackSector.Loop.Init(room);
+                Task.Begin.HarvestResourcesStart.Init(room);
+            break;
+            
+            case "Begin-Harvest-Start":
+                //This does the initial harvest, so we will try to get more resources
+                Task.Begin.HarvestResourcesStart.Update(room);
             break;
             
             case "Begin-Harvest":
                 //This does the initial harvest, so we will try to get more resources
-                Task.Begin.HarvestResources.Update();
+                Task.Begin.HarvestResources.Update(room);
             break;
             
             case "Begin-Research":
